@@ -29,5 +29,9 @@ public class ApplicationController {
     public ResponseEntity<List<ApplicationDto>> getAllApplications() {
         return applicationService.getAllApplications();
     }
+    @PutMapping("/applications/{id}")
+    public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
+        return applicationService.updateApplication(id, applicationDto);
+    }
 
 }

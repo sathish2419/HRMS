@@ -13,6 +13,9 @@ public interface ApplicationService {
 
     ResponseEntity<List<ApplicationDto>> getAllApplications();
 
+    ResponseEntity<ApplicationDto> updateApplication(Long id, ApplicationDto applicationDto);
+
+
 
 
 }

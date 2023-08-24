@@ -49,4 +49,20 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(allApplicationDtos);
     }
+
+    @Override
+    public ResponseEntity<ApplicationDto> updateApplication(Long id, ApplicationDto applicationDto) {
+        ApplicationEntity existingApplication = applicationRepository.findById(id).orElse(null);
+
+        if (existingApplication != null) {
+            applicationMapper.updateEntityFromDto(applicationDto, existingApplication); // Update fields
+            ApplicationEntity updatedApplication = applicationRepository.save(existingApplication);
+            ApplicationDto updatedApplicationDto = applicationMapper.toModel(updatedApplication);
+            return ResponseEntity.ok(updatedApplicationDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
