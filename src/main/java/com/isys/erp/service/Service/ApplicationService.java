@@ -7,4 +7,7 @@ import org.springframework.http.ResponseEntity;
 public interface ApplicationService {
     ResponseEntity<ApplicationDto> createApplication (ApplicationDto applicationDto);
 
+    ResponseEntity<ApplicationDto> getApplication(Long id);
+
+
 }

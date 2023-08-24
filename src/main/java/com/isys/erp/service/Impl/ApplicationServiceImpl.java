@@ -26,4 +26,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         ApplicationDto saveApplicationDto =applicationMapper.toModel(saveApplication);
         return new ResponseEntity<>(saveApplicationDto, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<ApplicationDto> getApplication(Long id) {
+        ApplicationEntity applicationEntity = applicationRepository.findById(id).orElse(null);
+        if (applicationEntity != null) {
+            ApplicationDto applicationDto = applicationMapper.toModel(applicationEntity);
+            return ResponseEntity.ok(applicationDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

@@ -4,10 +4,7 @@ import com.isys.erp.dto.ApplicationDto;
 import com.isys.erp.service.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,6 +16,11 @@ public class ApplicationController {
     @PostMapping("/save")
     public ResponseEntity<ApplicationDto> createApplication (@RequestBody ApplicationDto applicationDto){
         return  applicationService.createApplication(applicationDto);
+    }
+
+    @GetMapping("/applications/{id}")
+    public ResponseEntity<ApplicationDto> getApplication(@PathVariable Long id) {
+        return applicationService.getApplication(id);
     }
 
 }
