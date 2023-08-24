@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
@@ -36,5 +39,14 @@ public class ApplicationServiceImpl implements ApplicationService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
+        List<ApplicationEntity> allApplications = applicationRepository.findAll();
+        List<ApplicationDto> allApplicationDtos = allApplications.stream()
+                .map(applicationMapper::toModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(allApplicationDtos);
     }
 }

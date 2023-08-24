@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ApplicationController {
@@ -21,6 +23,11 @@ public class ApplicationController {
     @GetMapping("/applications/{id}")
     public ResponseEntity<ApplicationDto> getApplication(@PathVariable Long id) {
         return applicationService.getApplication(id);
+    }
+
+    @GetMapping("/applications")
+    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
+        return applicationService.getAllApplications();
     }
 
 }
