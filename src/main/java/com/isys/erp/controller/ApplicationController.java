@@ -3,6 +3,7 @@ package com.isys.erp.controller;
 import com.isys.erp.dto.ApplicationDto;
 import com.isys.erp.service.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,17 @@ public class ApplicationController {
     @PutMapping("/applications/{id}")
     public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
         return applicationService.updateApplication(id, applicationDto);
+    }
+
+    @DeleteMapping("/applications/{id}")
+    public ResponseEntity<String> deleteApplication(@PathVariable Long id) {
+        ResponseEntity<Void> response = applicationService.deleteApplication(id);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return ResponseEntity.ok("Application deleted successfully.");
+        } else {
+            return ResponseEntity.status(response.getStatusCode()).build();
+        }
     }
 
 }

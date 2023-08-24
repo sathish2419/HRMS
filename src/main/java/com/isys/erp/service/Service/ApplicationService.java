@@ -15,6 +15,8 @@ public interface ApplicationService {
 
     ResponseEntity<ApplicationDto> updateApplication(Long id, ApplicationDto applicationDto);
 
+    ResponseEntity<Void> deleteApplication(Long id);
+
 
 
 

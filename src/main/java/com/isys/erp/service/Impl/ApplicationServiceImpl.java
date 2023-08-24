@@ -64,5 +64,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
+    @Override
+    public ResponseEntity<Void> deleteApplication(Long id) {
+        if (applicationRepository.existsById(id)) {
+            applicationRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }
