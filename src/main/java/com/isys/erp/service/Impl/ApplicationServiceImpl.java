@@ -7,7 +7,9 @@ import com.isys.erp.repository.ApplicationRepository;
 import com.isys.erp.service.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -76,11 +78,26 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
-    @Override
-    public Page<ApplicationDto> getAllApplications(Pageable pageable) {
-        Page<ApplicationEntity> applicationPage = applicationRepository.findAll(pageable);
-        return applicationPage.map(applicationMapper::toModel);
-    }
+//    @Override
+//    public Page<ApplicationDto> getAllApplications(Pageable pageable) {
+//        Page<ApplicationEntity> applicationPage = applicationRepository.findAll(pageable);
+//        return applicationPage.map(applicationMapper::toModel);
+//    }
 
+    @Override
+    public ResponseEntity<Page<ApplicationDto>> getAllApplications(int page, int size, String sortBy, String filterName) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        Page<ApplicationEntity> applicationPage;
+        if (filterName != null && !filterName.isEmpty()) {
+            applicationPage = applicationRepository.findByApplicationNameContainingAndStatus(filterName, true, pageable);
+        } else {
+            applicationPage = applicationRepository.findAll(pageable);
+        }
+
+        Page<ApplicationDto> applicationDtos = applicationPage.map(applicationMapper::toModel);
+
+        return ResponseEntity.ok(applicationDtos);
+    }
 
 }

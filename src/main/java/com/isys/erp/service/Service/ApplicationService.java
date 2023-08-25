@@ -19,7 +19,9 @@ public interface ApplicationService {
 
     ResponseEntity<Void> deleteApplication(Long id);
 
-    Page<ApplicationDto> getAllApplications(Pageable pageable);
+    ResponseEntity<Page<ApplicationDto>> getAllApplications(int page, int size, String sortBy, String filterName);
+
+//    Page<ApplicationDto> getAllApplications(Pageable pageable);
 
 
 

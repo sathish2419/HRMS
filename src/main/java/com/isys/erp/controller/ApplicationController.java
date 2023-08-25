@@ -49,14 +49,26 @@ public class ApplicationController {
         }
     }
 
+//    @GetMapping("/applications")
+//    public ResponseEntity<Page<ApplicationDto>> getAllApplications(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "3") int size
+//    ) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<ApplicationDto> applicationPage = applicationService.getAllApplications(pageable);
+//        return ResponseEntity.ok(applicationPage);
+//    }
+
     @GetMapping("/applications")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ApplicationDto> applicationPage = applicationService.getAllApplications(pageable);
-        return ResponseEntity.ok(applicationPage);
+            @RequestParam(defaultValue = "1") int size,
+            @RequestParam(defaultValue = "applicationName") String sortBy,
+            @RequestParam() String filterName)
+
+    {
+
+        return applicationService.getAllApplications(page, size, sortBy, filterName);
     }
 
 
