@@ -6,6 +6,8 @@ import com.isys.erp.mapper.ApplicationMapper;
 import com.isys.erp.repository.ApplicationRepository;
 import com.isys.erp.service.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,14 +43,14 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
-    @Override
-    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
-        List<ApplicationEntity> allApplications = applicationRepository.findAll();
-        List<ApplicationDto> allApplicationDtos = allApplications.stream()
-                .map(applicationMapper::toModel)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(allApplicationDtos);
-    }
+//    @Override
+//    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
+//        List<ApplicationEntity> allApplications = applicationRepository.findAll();
+//        List<ApplicationDto> allApplicationDtos = allApplications.stream()
+//                .map(applicationMapper::toModel)
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok(allApplicationDtos);
+//    }
 
     @Override
     public ResponseEntity<ApplicationDto> updateApplication(Long id, ApplicationDto applicationDto) {
@@ -72,6 +74,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public Page<ApplicationDto> getAllApplications(Pageable pageable) {
+        Page<ApplicationEntity> applicationPage = applicationRepository.findAll(pageable);
+        return applicationPage.map(applicationMapper::toModel);
     }
 
 
