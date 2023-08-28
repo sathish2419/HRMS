@@ -29,10 +29,10 @@ public class ApplicationController {
         return applicationService.getApplication(id);
     }
 
-//    @GetMapping("/applications")
-//    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
-//        return applicationService.getAllApplications();
-//    }
+    @GetMapping("/applications")
+    public ResponseEntity<List<ApplicationDto>> getAllApplications() {
+        return applicationService.getAllApplications();
+    }
     @PutMapping("/applications/{id}")
     public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
         return applicationService.updateApplication(id, applicationDto);
@@ -48,18 +48,17 @@ public class ApplicationController {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
     }
+    @GetMapping("/Applications")
+    public ResponseEntity<Page<ApplicationDto>> getAllApplications(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ApplicationDto> applicationPage = applicationService.getAllApplications(pageable);
+        return ResponseEntity.ok(applicationPage);
+    }
 
-//    @GetMapping("/applications")
-//    public ResponseEntity<Page<ApplicationDto>> getAllApplications(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "3") int size
-//    ) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<ApplicationDto> applicationPage = applicationService.getAllApplications(pageable);
-//        return ResponseEntity.ok(applicationPage);
-//    }
-
-    @GetMapping("/applications")
+    @GetMapping("/Aapplications")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "1") int size,
