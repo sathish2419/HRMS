@@ -13,7 +13,7 @@ public interface ApplicationService {
 
     ResponseEntity<ApplicationDto> getApplication(Long id);
 
-//    ResponseEntity<List<ApplicationDto>> getAllApplications();
+    ResponseEntity<List<ApplicationDto>> getAllApplications();
 
     ResponseEntity<ApplicationDto> updateApplication(Long id, ApplicationDto applicationDto);
 
@@ -21,7 +21,7 @@ public interface ApplicationService {
 
     ResponseEntity<Page<ApplicationDto>> getAllApplications(int page, int size, String sortBy, String filterName);
 
-//    Page<ApplicationDto> getAllApplications(Pageable pageable);
+    Page<ApplicationDto> getAllApplications(Pageable pageable);
 
 
 
