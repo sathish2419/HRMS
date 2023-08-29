@@ -19,9 +19,9 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @PostMapping("/createApplication")
-    public ResponseEntity<ApplicationDto> createApplication (@RequestBody ApplicationDto applicationDto){
-        return  applicationService.createApplication(applicationDto);
+    @PostMapping("/createApplication")//createApplication
+    public ResponseEntity<ApplicationDto> createApplication(@RequestBody ApplicationDto applicationDto) {
+        return applicationService.createApplication(applicationDto);
     }
 
     @GetMapping("/getByIdApplication/{id}")
@@ -33,6 +33,7 @@ public class ApplicationController {
     public ResponseEntity<List<ApplicationDto>> getAllApplications() {
         return applicationService.getAllApplications();
     }
+
     @PutMapping("/updateApplication/{id}")
     public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
         return applicationService.updateApplication(id, applicationDto);
@@ -48,6 +49,7 @@ public class ApplicationController {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
     }
+
     @GetMapping("/paginationApplication")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
@@ -63,9 +65,7 @@ public class ApplicationController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "1") int size,
             @RequestParam(defaultValue = "applicationName") String sortBy,
-            @RequestParam() String filterName)
-
-    {
+            @RequestParam() String filterName) {
 
         return applicationService.getAllApplications(page, size, sortBy, filterName);
     }
