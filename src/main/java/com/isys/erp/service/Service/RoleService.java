@@ -4,6 +4,8 @@ import com.isys.erp.dto.RoleDto;
 
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface RoleService {
     ResponseEntity<RoleDto> createRole(RoleDto roledto);
 
@@ -15,4 +17,6 @@ public interface RoleService {
 
 
     ResponseEntity<Void> deleteRole(Long roleId);
+
+    ResponseEntity<List<RoleDto>> getAllRole();
 }
