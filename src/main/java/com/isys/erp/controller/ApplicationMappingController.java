@@ -14,24 +14,24 @@ public class ApplicationMappingController {
     @Autowired
     private ApplicationMappingService applicationMappingService;
 
-    @PostMapping("/create")
+    @PostMapping("/createApplicationMapping")
     public ResponseEntity<ApplicationMappingDto> createApplicationMapping (@RequestBody ApplicationMappingDto applicationMappingDto){
         return  applicationMappingService.createApplicationMapping(applicationMappingDto);
     }
-    @GetMapping("/applicationMapping/{id}")
+    @GetMapping("/getByIdApplicationMapping/{id}")
     public ResponseEntity<ApplicationMappingDto> getAllApplicationMapping(@PathVariable Long id){
         return applicationMappingService.getAllApplicationMapping(id);
     }
-    @GetMapping("/applicationMappings")
+    @GetMapping("/getAllApplicationMapping")
     public ResponseEntity<List<ApplicationMappingDto>> getAllApplicationMappings(){
         return applicationMappingService.getAllApplicationMappings();
     }
-    @PutMapping("/applicationMappings/{id}")
+    @PutMapping("/updateApplicationMapping/{id}")
     public ResponseEntity<ApplicationMappingDto> updateApplicationMapping(@PathVariable Long id, @RequestBody ApplicationMappingDto applicationMappingDto){
         return applicationMappingService.updateApplicationMapping(id , applicationMappingDto);
     }
 
-    @DeleteMapping("/applicationMappings/{id}")
+    @DeleteMapping("/deleteApplicationMapping/{id}")
     public ResponseEntity<String> deleteApplicationMappingById(@PathVariable Long id){
         ResponseEntity<Void> response = applicationMappingService.deleteApplicationMappingById(id);
 

@@ -14,24 +14,24 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("/create")
+    @PostMapping("/menuCreate")
     public ResponseEntity<MenuDto> createMenu(@RequestBody MenuDto menuDto){
         return menuService.createMenu(menuDto);
     }
-    @GetMapping("/getMenu/{id}")
+    @GetMapping("/getByIdMenu/{id}")
     public ResponseEntity<MenuDto> getMenu(@PathVariable Long id){
         return menuService.getMenu(id);
     }
-    @GetMapping("/menu")
+    @GetMapping("/getAllMenu")
     public ResponseEntity<List<MenuDto>> getAllMenu(){
         return menuService.getAllMenu();
     }
 
-    @PutMapping("/menu/{id}")
+    @PutMapping("/updateMenu/{id}")
     public ResponseEntity<MenuDto> updateMenu(@PathVariable Long id, @RequestBody MenuDto menuDto){
         return menuService.updateMenu(id, menuDto);
     }
-    @DeleteMapping("/menu/{id}")
+    @DeleteMapping("/deleteMenu/{id}")
     public ResponseEntity<String> deleteMenu(@PathVariable Long id) {
         ResponseEntity<Void> response = menuService.deleteMenu(id);
 
