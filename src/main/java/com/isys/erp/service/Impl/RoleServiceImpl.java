@@ -2,6 +2,7 @@ package com.isys.erp.service.Impl;
 
 
 import com.isys.erp.dto.RoleDto;
+import com.isys.erp.entity.MenuEntity;
 import com.isys.erp.entity.RoleEntity;
 import com.isys.erp.mapper.RoleMapper;
 import com.isys.erp.repository.RoleRepository;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -70,5 +73,11 @@ public class RoleServiceImpl implements RoleService {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    @Override
+    public ResponseEntity<List<RoleDto>> getAllRole() {
+        List<RoleEntity> roleEntity = roleRepository.findAll();
+        return new ResponseEntity<>(roleMapper.toModellist(roleEntity), HttpStatus.OK);
     }
 }
