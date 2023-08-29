@@ -19,26 +19,26 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @PostMapping("/save")
+    @PostMapping("/createApplication")
     public ResponseEntity<ApplicationDto> createApplication (@RequestBody ApplicationDto applicationDto){
         return  applicationService.createApplication(applicationDto);
     }
 
-    @GetMapping("/applications/{id}")
+    @GetMapping("/getByIdApplication/{id}")
     public ResponseEntity<ApplicationDto> getApplication(@PathVariable Long id) {
         return applicationService.getApplication(id);
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/getAllApplication")
     public ResponseEntity<List<ApplicationDto>> getAllApplications() {
         return applicationService.getAllApplications();
     }
-    @PutMapping("/applications/{id}")
+    @PutMapping("/updateApplication/{id}")
     public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
         return applicationService.updateApplication(id, applicationDto);
     }
 
-    @DeleteMapping("/applications/{id}")
+    @DeleteMapping("/deleteApplication/{id}")
     public ResponseEntity<String> deleteApplication(@PathVariable Long id) {
         ResponseEntity<Void> response = applicationService.deleteApplication(id);
 
@@ -48,7 +48,7 @@ public class ApplicationController {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
     }
-    @GetMapping("/Applications")
+    @GetMapping("/paginationApplication")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
@@ -58,7 +58,7 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationPage);
     }
 
-    @GetMapping("/Aapplications")
+    @GetMapping("/Applications")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "1") int size,
