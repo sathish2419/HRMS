@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.util.Date;
 
 @Entity
@@ -37,8 +40,10 @@ public class ApplicationEntity {
     private String updatedBy;
 
     @Column(name = "created_date")
+    @CreationTimestamp
     private Date createdDate = new Date();
 
     @Column(name = "updated_date")
+    @UpdateTimestamp
     private Date updatedDate = new Date();
 }
