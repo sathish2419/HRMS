@@ -61,5 +61,14 @@ public class RoleServiceImpl implements RoleService {
         return "Id deleted successfully";
     }
 
+    @Override
+    public ResponseEntity<Void> deleteRole(Long roleId) {//delete
+        if (roleRepository.existsById(roleId)) {
+            roleRepository.deleteById(roleId);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
+    }
 }
