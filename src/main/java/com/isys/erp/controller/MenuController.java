@@ -14,7 +14,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("/menuCreate")
+    @PostMapping("/menuCreate")//menuCreate
     public ResponseEntity<MenuDto> createMenu(@RequestBody MenuDto menuDto){
         return menuService.createMenu(menuDto);
     }
