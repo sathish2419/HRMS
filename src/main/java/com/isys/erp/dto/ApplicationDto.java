@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApplicationDto {
 
+    private Long id;
     private String applicationCode;
     private String applicationName;
     private String description;
