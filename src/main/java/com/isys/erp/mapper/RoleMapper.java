@@ -12,6 +12,4 @@ import org.springframework.stereotype.Component;
 @Component
 public interface RoleMapper extends BaseMapper<RoleEntity, RoleDto> {
     void updateEntityFromDto(RoleDto dto, @MappingTarget RoleEntity entity);
-
-
 }

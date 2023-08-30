@@ -23,7 +23,7 @@ public class MenuEntity {
     private String menuName;
     @Column(name = "parent_id")
     private String parentId;
+    @ManyToMany(mappedBy = "menus")
+    private List<RoleEntity> roles = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "menus",cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    private List<RoleEntity> roles;
 }

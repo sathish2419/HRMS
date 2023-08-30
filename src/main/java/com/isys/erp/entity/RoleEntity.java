@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long roleId;
     @Column(name = "Role_Code")
     private String roleCode;
@@ -24,12 +24,14 @@ public class RoleEntity {
     private String roleName;
     @Column(name = "Role_Description")
     private String roleDescription;
-
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
-            name = "role_menu",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "menu_id")}
+            name = "role_menu", // Name of the association table
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id")
     )
-    private List<MenuEntity> menus;
+    private List<MenuEntity> menus = new ArrayList<>();
+
+
+
 }

@@ -32,11 +32,17 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public ResponseEntity<RoleDto> createRole(RoleDto roleDto) {
-        RoleEntity roleEntity = roleMapper.toEntity(roleDto);
-        RoleEntity saveRole = roleRepository.save(roleEntity);
-        RoleDto saveRoleDto = roleMapper.toModel(saveRole);
-        return new ResponseEntity<>(saveRoleDto, HttpStatus.OK);
+        try {
+            RoleEntity roleEntity = roleMapper.toEntity(roleDto);
+            RoleEntity saveRole = roleRepository.save(roleEntity);
+            RoleDto saveRoleDto = roleMapper.toModel(saveRole);
+            return new ResponseEntity<>(saveRoleDto, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @Override
     public ResponseEntity<RoleDto> getById(Long roleId) {
@@ -55,7 +61,6 @@ public class RoleServiceImpl implements RoleService {
         if(existingRole != null) {
             roleMapper.updateEntityFromDto(roleDto, existingRole);
 
-            // Clear the existing menus and update with new menus
             existingRole.getMenus().clear();
             for (MenuDto menuDto : roleDto.getMenus()) {
                 MenuEntity menuEntity = menuRepository.findById(menuDto.getMenuId()).orElse(null);
