@@ -1,15 +1,14 @@
 package com.isys.erp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "role_table",schema = "isys_erp")
@@ -26,12 +25,9 @@ public class RoleEntity {
     private String roleDescription;
     @ManyToMany
     @JoinTable(
-            name = "role_menu", // Name of the association table
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_id")
+            name = "role_menu", // name of the join table
+            joinColumns = @JoinColumn(name = "role_id"), // foreign key column for RoleEntity
+            inverseJoinColumns = @JoinColumn(name = "menu_id") // foreign key column for MenuEntity
     )
     private List<MenuEntity> menus = new ArrayList<>();
-
-
-
 }

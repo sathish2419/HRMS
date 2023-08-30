@@ -36,9 +36,15 @@ public class RoleController {
     @PutMapping("/updateRole/{roleId}")
     public ResponseEntity<RoleDto> updateRole(@PathVariable Long roleId,
                                               @RequestBody RoleDto roleDto) {
-        ResponseEntity<RoleDto> updateRole = roleService.updateRole(roleId, roleDto);
-        return updateRole;
+        ResponseEntity<RoleDto> updateRoleResponse = roleService.updateRole(roleId, roleDto);
+
+        if (updateRoleResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return updateRoleResponse;
     }
+
 
     @DeleteMapping("/deleteRole/{roleId}")
     public ResponseEntity<String> deleteRole(@PathVariable Long roleId) {

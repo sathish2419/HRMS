@@ -5,6 +5,7 @@ import com.isys.erp.dto.MenuDto;
 import com.isys.erp.dto.RoleDto;
 import com.isys.erp.entity.MenuEntity;
 import com.isys.erp.entity.RoleEntity;
+import com.isys.erp.mapper.MenuMapper;
 import com.isys.erp.mapper.RoleMapper;
 import com.isys.erp.repository.MenuRepository;
 import com.isys.erp.repository.RoleRepository;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,22 +28,31 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private MenuMapper menuMapper;
 
     public RoleServiceImpl() {
     }
 
     @Override
     public ResponseEntity<RoleDto> createRole(RoleDto roleDto) {
-        try {
-            RoleEntity roleEntity = roleMapper.toEntity(roleDto);
-            RoleEntity saveRole = roleRepository.save(roleEntity);
-            RoleDto saveRoleDto = roleMapper.toModel(saveRole);
-            return new ResponseEntity<>(saveRoleDto, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        RoleEntity roleEntity = roleMapper.toEntity(roleDto);
+
+        // Persist menu entities first
+        List<MenuEntity> persistedMenus = new ArrayList<>();
+        for (MenuDto menuDto : roleDto.getMenus()) {
+            MenuEntity menuEntity = menuMapper.toEntity(menuDto);
+            menuRepository.save(menuEntity);
+            persistedMenus.add(menuEntity);
         }
+
+        roleEntity.setMenus(persistedMenus);
+
+        RoleEntity saveRole = roleRepository.save(roleEntity);
+        RoleDto saveRoleDto = roleMapper.toModel(saveRole);
+        return new ResponseEntity<>(saveRoleDto, HttpStatus.OK);
     }
+
 
 
     @Override
@@ -55,19 +66,28 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    @Override
+     @Override
     public ResponseEntity<RoleDto> updateRole(Long roleId, RoleDto roleDto) {
         RoleEntity existingRole = roleRepository.findById(roleId).orElse(null);
-        if(existingRole != null) {
+        if (existingRole != null) {
             roleMapper.updateEntityFromDto(roleDto, existingRole);
 
-            existingRole.getMenus().clear();
+            List<MenuEntity> updatedMenuEntities = new ArrayList<>();
             for (MenuDto menuDto : roleDto.getMenus()) {
                 MenuEntity menuEntity = menuRepository.findById(menuDto.getMenuId()).orElse(null);
                 if (menuEntity != null) {
-                    existingRole.getMenus().add(menuEntity);
+                    // Update existing menu data here
+                    menuEntity.setMenuName(menuDto.getMenuName());
+                    menuEntity.setParentId(menuDto.getParentId()); // Set parent ID if applicable
+                    updatedMenuEntities.add(menuEntity);
+                } else {
+                    // Use the MenuMapper to convert MenuDto to MenuEntity
+                    MenuEntity newMenuEntity = menuMapper.toEntity(menuDto);
+                    updatedMenuEntities.add(newMenuEntity);
                 }
             }
+
+            existingRole.setMenus(updatedMenuEntities);
 
             RoleEntity updatedRole = roleRepository.save(existingRole);
             RoleDto updatedRoleDto = roleMapper.toModel(updatedRole);
@@ -76,6 +96,8 @@ public class RoleServiceImpl implements RoleService {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
     @Override
     public String deleteRoleById(Long roleId) {
