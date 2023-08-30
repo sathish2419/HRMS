@@ -1,9 +1,12 @@
 package com.isys.erp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 
 @Entity
 @Data
@@ -23,6 +26,5 @@ public class MenuEntity {
     private String parentId;
 
     @ManyToOne
-    @JoinColumn(name = "fk_application_id", referencedColumnName = "application_id")
     private ApplicationEntity application;
 }

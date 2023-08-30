@@ -19,5 +19,4 @@ public class ApplicationDto {
     private String updatedBy;
 
     private List<MenuDto> menu;
-
 }

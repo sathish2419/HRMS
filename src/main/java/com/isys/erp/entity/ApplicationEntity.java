@@ -1,9 +1,9 @@
 package com.isys.erp.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,7 +20,6 @@ public class ApplicationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "application_id")
     private Long id;
 
     @Column(name = "application_code")
@@ -49,7 +48,7 @@ public class ApplicationEntity {
     @UpdateTimestamp
     private Date updatedDate = new Date();
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "application_id")
     private List<MenuEntity> menu;
-
 }
