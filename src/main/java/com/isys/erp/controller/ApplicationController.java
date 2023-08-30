@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class ApplicationController {   //one
+public class ApplicationController {
 
     @Autowired
     private ApplicationService applicationService;
