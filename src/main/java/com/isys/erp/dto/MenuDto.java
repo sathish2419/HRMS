@@ -12,4 +12,5 @@ public class MenuDto {
     private Long menuId;
     private String menuName;
     private String parentId;
+
 }
