@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuDto {
 
-
     private Long menuId;
     private String menuName;
     private String parentId;
+    private ApplicationDto application;
 }

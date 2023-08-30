@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "application", schema = "isys_erp")
@@ -19,6 +20,7 @@ public class ApplicationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "application_id")
     private Long id;
 
     @Column(name = "application_code")
@@ -46,4 +48,8 @@ public class ApplicationEntity {
     @Column(name = "updated_date")
     @UpdateTimestamp
     private Date updatedDate = new Date();
+
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    private List<MenuEntity> menu;
+
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -20,4 +21,8 @@ public class MenuEntity {
     private String menuName;
     @Column(name = "parent_id")
     private String parentId;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_application_id", referencedColumnName = "application_id")
+    private ApplicationEntity application;
 }
