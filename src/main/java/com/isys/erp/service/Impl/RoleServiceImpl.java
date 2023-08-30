@@ -1,10 +1,12 @@
 package com.isys.erp.service.Impl;
 
 
+import com.isys.erp.dto.MenuDto;
 import com.isys.erp.dto.RoleDto;
 import com.isys.erp.entity.MenuEntity;
 import com.isys.erp.entity.RoleEntity;
 import com.isys.erp.mapper.RoleMapper;
+import com.isys.erp.repository.MenuRepository;
 import com.isys.erp.repository.RoleRepository;
 import com.isys.erp.service.Service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private MenuRepository menuRepository;
 
     public RoleServiceImpl() {
     }
@@ -47,15 +52,24 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public ResponseEntity<RoleDto> updateRole(Long roleId, RoleDto roleDto) {
         RoleEntity existingRole = roleRepository.findById(roleId).orElse(null);
-        if(existingRole!=null){
-            roleMapper.updateEntityFromDto(roleDto,existingRole);
-            RoleEntity updatedRole=roleRepository.save(existingRole);
-            RoleDto updatedRoleDto=roleMapper.toModel(updatedRole);
+        if(existingRole != null) {
+            roleMapper.updateEntityFromDto(roleDto, existingRole);
+
+            // Clear the existing menus and update with new menus
+            existingRole.getMenus().clear();
+            for (MenuDto menuDto : roleDto.getMenus()) {
+                MenuEntity menuEntity = menuRepository.findById(menuDto.getMenuId()).orElse(null);
+                if (menuEntity != null) {
+                    existingRole.getMenus().add(menuEntity);
+                }
+            }
+
+            RoleEntity updatedRole = roleRepository.save(existingRole);
+            RoleDto updatedRoleDto = roleMapper.toModel(updatedRole);
             return ResponseEntity.ok(updatedRoleDto);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @Override

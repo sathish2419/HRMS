@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2")////
+@RequestMapping("/api/v2")
 
 public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping("/createRole")
+    @PostMapping("/CreateRole")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
         return roleService.createRole(roleDto);
     }
