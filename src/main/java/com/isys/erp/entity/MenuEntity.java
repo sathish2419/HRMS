@@ -17,7 +17,6 @@ public class MenuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "menu_id")
     private Long menuId;
     @Column(name = "menu_name")

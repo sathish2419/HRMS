@@ -17,7 +17,6 @@ import java.util.List;
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private  Long roleId;
     @Column(name = "Role_Code")
     private String roleCode;
