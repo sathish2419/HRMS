@@ -1,6 +1,5 @@
 package com.isys.erp.service.Impl;
 
-
 import com.isys.erp.dto.MenuDto;
 import com.isys.erp.dto.RoleDto;
 import com.isys.erp.entity.MenuEntity;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-     @Override
+    @Override
     public ResponseEntity<RoleDto> updateRole(Long roleId, RoleDto roleDto) {
         RoleEntity existingRole = roleRepository.findById(roleId).orElse(null);
         if (existingRole != null) {
