@@ -1,13 +1,14 @@
 package com.isys.erp.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "application", schema = "isys_erp")
@@ -46,4 +47,8 @@ public class ApplicationEntity {
     @Column(name = "updated_date")
     @UpdateTimestamp
     private Date updatedDate = new Date();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "application_id")
+    private List<MenuEntity> menu;
 }

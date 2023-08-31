@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 
 @Entity
 @Data
@@ -29,7 +31,9 @@ public class MenuEntity {
     @ManyToOne
     private ApplicationEntity application;
 
+
     @ManyToMany(mappedBy = "menus")
     private List<RoleEntity> roles = new ArrayList<>();
+
 
 }
