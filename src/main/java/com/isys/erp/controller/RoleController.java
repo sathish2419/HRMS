@@ -1,5 +1,4 @@
 package com.isys.erp.controller;
-
 import com.isys.erp.dto.ApplicationDto;
 import com.isys.erp.dto.RoleDto;
 
@@ -20,7 +19,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping("/createRole")
+    @PostMapping("/CreateRole")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
         return roleService.createRole(roleDto);
     }
@@ -36,9 +35,15 @@ public class RoleController {
     @PutMapping("/updateRole/{roleId}")
     public ResponseEntity<RoleDto> updateRole(@PathVariable Long roleId,
                                               @RequestBody RoleDto roleDto) {
-        ResponseEntity<RoleDto> updateRole = roleService.updateRole(roleId, roleDto);
-        return updateRole;
+        ResponseEntity<RoleDto> updateRoleResponse = roleService.updateRole(roleId, roleDto);
+
+        if (updateRoleResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return updateRoleResponse;
     }
+
 
     @DeleteMapping("/deleteRole/{roleId}")
     public ResponseEntity<String> deleteRole(@PathVariable Long roleId) {
