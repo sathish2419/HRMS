@@ -13,8 +13,6 @@ public interface RoleService {
 
     ResponseEntity<RoleDto> updateRole(Long roleId, RoleDto roleDto);
 
-    String deleteRoleById(Long roleId);
-
 
     ResponseEntity<Void> deleteRole(Long roleId);
 
