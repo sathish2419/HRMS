@@ -7,6 +7,8 @@ import com.isys.erp.mapper.ApplicationMappingMapper;
 import com.isys.erp.repository.ApplicationMappingRepository;
 import com.isys.erp.service.Service.ApplicationMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -69,6 +71,13 @@ public class ApplicationMappingServiceImpl implements ApplicationMappingService 
         }else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public Page<ApplicationMappingDto> getAllApplicationsMappings(Pageable pageable) {
+        Page<ApplicationMappingEntity> applicationMappingPage = applicationMappingRepository.findAll(pageable);
+        return applicationMappingPage.map(applicationMappingMapper::toModel);
+
     }
 
 

@@ -29,8 +29,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private MenuMapper menuMapper;
 
-    public RoleServiceImpl() {
-    }
+
 
     @Override
     public ResponseEntity<RoleDto> createRole(RoleDto roleDto) {
@@ -96,12 +95,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
 
-
-    @Override
-    public String deleteRoleById(Long roleId) {
-        roleRepository.deleteById(roleId);
-        return "Id deleted successfully";
-    }
 
     @Override
     public ResponseEntity<Void> deleteRole(Long roleId) {//delete

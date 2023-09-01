@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class    ApplicationServiceImpl implements ApplicationService {
 
     @Autowired
     private ApplicationMapper applicationMapper;

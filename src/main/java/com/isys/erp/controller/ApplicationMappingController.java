@@ -3,6 +3,9 @@ package com.isys.erp.controller;
 import com.isys.erp.dto.ApplicationMappingDto;
 import com.isys.erp.service.Service.ApplicationMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,4 +44,12 @@ public class ApplicationMappingController {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
     }
+    @GetMapping("/paginationApplicationMapping")
+    private ResponseEntity<Page<ApplicationMappingDto>> getAllApplicationMapping(
+            @RequestParam(defaultValue = "0") int page){
+        Pageable pageable = PageRequest.of(page ,2);
+        Page<ApplicationMappingDto> applicationMappingPage = applicationMappingService.getAllApplicationsMappings(pageable);
+        return ResponseEntity.ok(applicationMappingPage);
+    }
+
 }
