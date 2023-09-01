@@ -1,12 +1,12 @@
 package com.isys.erp.controller;
 
 import com.isys.erp.dto.ApplicationDto;
+import com.isys.erp.entity.ApplicationEntity;
 import com.isys.erp.service.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +20,8 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @PostMapping("/createApplication")
-    public ResponseEntity<ApplicationDto> createApplication (@RequestBody ApplicationDto applicationDto){
-        return  applicationService.createApplication(applicationDto);
+    public ResponseEntity<ApplicationDto> createApplication(@RequestBody ApplicationDto applicationDto) {
+        return applicationService.createApplication(applicationDto);
     }
 
     @GetMapping("/getByIdApplication/{id}")
@@ -33,6 +33,7 @@ public class ApplicationController {
     public ResponseEntity<List<ApplicationDto>> getAllApplications() {
         return applicationService.getAllApplications();
     }
+
     @PutMapping("/updateApplication/{id}")
     public ResponseEntity<ApplicationDto> updateApplication(@PathVariable Long id, @RequestBody ApplicationDto applicationDto) {
         return applicationService.updateApplication(id, applicationDto);
@@ -48,27 +49,27 @@ public class ApplicationController {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
     }
+
     @GetMapping("/paginationApplication")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
+            @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 2);
         Page<ApplicationDto> applicationPage = applicationService.getAllApplications(pageable);
         return ResponseEntity.ok(applicationPage);
     }
 
+
     @GetMapping("/Applications")
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size,
+
             @RequestParam(defaultValue = "applicationName") String sortBy,
-            @RequestParam() String filterName)
+            @RequestParam() String filterName) {
 
-    {
-
-        return applicationService.getAllApplications(page, size, sortBy, filterName);
+        return applicationService.getAllApplications(page, 2, sortBy, filterName);
     }
+
+
 
 
 }

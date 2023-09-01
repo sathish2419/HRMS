@@ -26,11 +26,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+
     @Override
     public ResponseEntity<ApplicationDto> createApplication(ApplicationDto applicationDto) {
-        ApplicationEntity applicationEntity=applicationMapper.toEntity(applicationDto);
-        ApplicationEntity saveApplication =applicationRepository.save(applicationEntity);
-        ApplicationDto saveApplicationDto =applicationMapper.toModel(saveApplication);
+        ApplicationEntity applicationEntity = applicationMapper.toEntity(applicationDto);
+        ApplicationEntity saveApplication = applicationRepository.save(applicationEntity);
+        ApplicationDto saveApplicationDto = applicationMapper.toModel(saveApplication);
         return new ResponseEntity<>(saveApplicationDto, HttpStatus.OK);
     }
 
@@ -84,6 +85,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationPage.map(applicationMapper::toModel);
     }
 
+
     @Override
     public ResponseEntity<Page<ApplicationDto>> getAllApplications(int page, int size, String sortBy, String filterName) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
@@ -100,4 +102,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         return ResponseEntity.ok(applicationDtos);
     }
 
+
 }
+
