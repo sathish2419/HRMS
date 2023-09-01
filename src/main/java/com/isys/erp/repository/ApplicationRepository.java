@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity,Long> {
-    Page<ApplicationEntity> findByApplicationNameContainingAndStatus(String applicationName, boolean status, Pageable pageable);
+    Page<ApplicationEntity> findByApplicationNameContainingAndStatus(String filterName, boolean b, Pageable pageable);
+    // Page<ApplicationEntity> findByApplicationNameContainingAndStatus(String applicationName, boolean status, Pageable pageable);
 
 }
