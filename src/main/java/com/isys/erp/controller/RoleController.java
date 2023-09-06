@@ -6,6 +6,7 @@ import com.isys.erp.entity.RoleEntity;
 import com.isys.erp.service.Service.RoleService;
 import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,5 +55,13 @@ public class RoleController {
         } else {
             return ResponseEntity.status(response.getStatusCode()).build();
         }
+    }
+
+    @GetMapping("/roles")
+    public Page<RoleEntity> getRoles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "roleName") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+        return roleService.getRoles(page, 2, sortBy, sortOrder);
     }
 }

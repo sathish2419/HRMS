@@ -1,5 +1,6 @@
 package com.isys.erp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,8 @@ public class RoleEntity {
     private String roleName;
     @Column(name = "Role_Description")
     private String roleDescription;
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "role_menu", // name of the join table

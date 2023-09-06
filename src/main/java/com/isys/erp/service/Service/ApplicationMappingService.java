@@ -1,6 +1,7 @@
 package com.isys.erp.service.Service;
 
 import com.isys.erp.dto.ApplicationMappingDto;
+import com.isys.erp.entity.ApplicationMappingEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ApplicationMappingService {
+
+
 
 
     ResponseEntity<ApplicationMappingDto> createApplicationMapping(ApplicationMappingDto applicationMappingDto);
@@ -22,4 +25,7 @@ public interface ApplicationMappingService {
     ResponseEntity<Void> deleteApplicationMappingById(Long id);
 
     Page<ApplicationMappingDto> getAllApplicationsMappings(Pageable pageable);
+
+
+    Page<ApplicationMappingEntity> getApplicationsMappings(int page, int size, String sortBy, String sortOrder);
 }

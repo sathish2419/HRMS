@@ -28,6 +28,7 @@ public class MenuEntity {
     @Column(name = "parent_id")
     private String parentId;
 
+
     @ManyToOne
     private ApplicationEntity application;
 

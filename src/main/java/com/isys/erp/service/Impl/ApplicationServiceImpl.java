@@ -85,21 +85,11 @@ public class    ApplicationServiceImpl implements ApplicationService {
         return applicationPage.map(applicationMapper::toModel);
     }
 
-
     @Override
-    public ResponseEntity<Page<ApplicationDto>> getAllApplications(int page, int size, String sortBy, String filterName) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-
-        Page<ApplicationEntity> applicationPage;
-        if (filterName != null && !filterName.isEmpty()) {
-            applicationPage = applicationRepository.findByApplicationNameContainingAndStatus(filterName, true, pageable);
-        } else {
-            applicationPage = applicationRepository.findAll(pageable);
-        }
-
-        Page<ApplicationDto> applicationDtos = applicationPage.map(applicationMapper::toModel);
-
-        return ResponseEntity.ok(applicationDtos);
+    public Page<ApplicationEntity> getPaginationAndSortingApplication(int page, int size, String sortBy, String sortOrder) {
+        Sort.Direction direction = Sort.Direction.fromString(sortOrder);
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        return applicationRepository.findAll(pageable);
     }
 
 
