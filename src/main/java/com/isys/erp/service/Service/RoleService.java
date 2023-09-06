@@ -2,6 +2,8 @@ package com.isys.erp.service.Service;
 
 import com.isys.erp.dto.RoleDto;
 
+import com.isys.erp.entity.RoleEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -17,4 +19,6 @@ public interface RoleService {
     ResponseEntity<Void> deleteRole(Long roleId);
 
     ResponseEntity<List<RoleDto>> getAllRole();
+
+    Page<RoleEntity> getRoles(int page, int size, String sortBy, String sortOrder);
 }

@@ -1,5 +1,6 @@
 package com.isys.erp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class ApplicationEntity {
     @UpdateTimestamp
     private Date updatedDate = new Date();
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "application_id")
     private List<MenuEntity> menu;

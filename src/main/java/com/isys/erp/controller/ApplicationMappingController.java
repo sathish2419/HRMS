@@ -1,6 +1,7 @@
 package com.isys.erp.controller;
 
 import com.isys.erp.dto.ApplicationMappingDto;
+import com.isys.erp.entity.ApplicationMappingEntity;
 import com.isys.erp.service.Service.ApplicationMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,14 @@ public class ApplicationMappingController {
         Pageable pageable = PageRequest.of(page ,2);
         Page<ApplicationMappingDto> applicationMappingPage = applicationMappingService.getAllApplicationsMappings(pageable);
         return ResponseEntity.ok(applicationMappingPage);
+    }
+
+    @GetMapping("/applicationMappings")
+    public Page<ApplicationMappingEntity> getApplicationsMappings(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "applicationCode") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+        return applicationMappingService.getApplicationsMappings(page, 2, sortBy, sortOrder);
     }
 
 }

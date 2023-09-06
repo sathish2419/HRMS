@@ -1,11 +1,16 @@
 package com.isys.erp.service.Impl;
 
 import com.isys.erp.dto.MenuDto;
+import com.isys.erp.entity.ApplicationEntity;
 import com.isys.erp.entity.MenuEntity;
 import com.isys.erp.mapper.MenuMapper;
 import com.isys.erp.repository.MenuRepository;
 import com.isys.erp.service.Service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -64,6 +69,19 @@ public class MenuServiceImpl implements MenuService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public Page<MenuDto> getAllmenus(Pageable pageable) {
+        Page<MenuEntity> menuPage = menuRepository.findAll(pageable);
+        return menuPage.map(menuMapper::toModel);
+    }
+
+    @Override
+    public Page<MenuEntity> getPaginationAndSortingMenu(int page, int size, String sortBy, String sortOrder) {
+        Sort.Direction direction = Sort.Direction.fromString(sortOrder);
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        return menuRepository.findAll(pageable);
     }
 
 

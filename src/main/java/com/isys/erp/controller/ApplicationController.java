@@ -60,16 +60,12 @@ public class ApplicationController {
 
 
     @GetMapping("/Applications")
-    public ResponseEntity<Page<ApplicationDto>> getAllApplications(
+    public Page<ApplicationEntity> getPaginationAndSortingApplication(
             @RequestParam(defaultValue = "0") int page,
-
             @RequestParam(defaultValue = "applicationName") String sortBy,
-            @RequestParam() String filterName) {
-
-        return applicationService.getAllApplications(page, 2, sortBy, filterName);
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+        return applicationService.getPaginationAndSortingApplication(page, 2, sortBy, sortOrder);
     }
-
-
 
 
 }

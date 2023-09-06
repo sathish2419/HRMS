@@ -10,6 +10,9 @@ import com.isys.erp.repository.MenuRepository;
 import com.isys.erp.repository.RoleRepository;
 import com.isys.erp.service.Service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -111,5 +114,12 @@ public class RoleServiceImpl implements RoleService {
     public ResponseEntity<List<RoleDto>> getAllRole() {
         List<RoleEntity> roleEntity = roleRepository.findAll();
         return new ResponseEntity<>(roleMapper.toModellist(roleEntity), HttpStatus.OK);
+    }
+
+    @Override
+    public Page<RoleEntity> getRoles(int page, int size, String sortBy, String sortOrder) {
+        Sort.Direction direction = Sort.Direction.fromString(sortOrder);
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        return roleRepository.findAll(pageable);
     }
 }
